@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load static %}
+<!-- pour la date widget -->
+
+{% block js %}
+    <!-- script et css pour le calendrier-->
+<script src="{% url 'js-catalog' %}"> </script>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/basetut.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/widgetstut.css" />
+<script type="text/javascript" src="{% static '/admin/js/coretut.js' %}"></script>
+
+<!-- regler ce proble 2 leaflet css qui se superpose -->
+
+
+
+<!-- script et css pour la Carte-->
+{% endblock %}
+
+{% block titre %}Rendez-vous test{% endblock %}
+
+{% block style %} 
+
+#mapid { height: 100%}
+.invalid-feedback {
+    display: inline-block;}
+#header-container {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1100;
+        background-color: #fff;}
+
+.fs-inner-container.content:after{
+    content:none;
+}
+.col-fs-12{
+    font-size:16px;
+    font-weight: bold;
+    color: var(--body-quiet-color);
+    margin: 10px 0 10px 0;
+
+}
+#footer{
+    display:none;
+}
+ul.errorlist{
+    margin: 5px 0 10px 0;
+    font-weight : 700;
+}
+{% endblock style %}
+
+
+{% block content %}
+
+<div class="fs-container" data-select2-id="select2-data-16-yope">
+    
+	
+	<div class="fs-inner-container content" style="padding-top: 80px;">
+		<div class="fs-content">
+            
+			<!-- Search -->
+
+			<section class="search" style="">
+                <div class="messages">
+                    {% for message in messages %}
+                    <p{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} style="text-align: center;">{{ message }}</p>
+                    {% endfor %}
+                </div>
+				<a href="#" id="show-map-button" class="show-map-button" data-enabled="Afficher la carte" data-disabled="Masquer la carte">Afficher la carte</a>
+				<div class="row">
+					<div class="col-md-12">
+					<form novalidate  method="GET">
+                                    {{ form.media }}
+		<div class="row with-forms">
+<div class="col-fs-12 etape1">
+    <p id="_etape_1" class="_etape_1"> 1. Veuillez choisir un créneau :</p>
+</div>
+<div class="col-fs-6  ">
+    {{form.Date.errors}} 
+	{{form.Date}}
+</div>
+
+<div class="col-fs-12 etape2">
+    <p id="_etape_2" class="_etape_2"> 2. Choisisez le centre via la map ou bien par le selecteur ci-dessous :</p>
+</div>
+
+<div class="col-fs-12  ">
+    {{form.centre.errors}} 
+    {{form.centre.label}}
+    {{form.centre}}
+</div>
+<div class="col-fs-12 etape2">
+    <p id="_etape_2" class="_etape_2"> 3. Selectionnez les modalités qui vous sied relatives au centre choisi :</p>
+</div>
+<div class="col-fs-12">
+        {{form.ct_technique.errors}} 
+        {{form.ct_technique.label}}
+        {{form.ct_technique}}
+</div>
+<div class="col-fs-12">
+        {{form.tr_propriete.label}}
+        {{form.tr_propriete}}
+</div>
+<div class="col-fs-12 etape2">
+    <p id="_etape_2" class="_etape_2"> 4. Veuillez saisir vos infos personnelles :</p>
+</div>
+<div class="col-fs-12">
+    {{form.GSM.errors}} 
+    {{form.GSM.label}}
+    {{form.GSM}}
+</div>
+<div class="col-fs-12">
+    {{form.email.errors}} 
+    {{form.email.label}}
+    {{form.email}}
+</div>
+</div>			
+<input  type="submit" value="Prendre randez-vous" class="button book-now fullwidth margin-top-5">
+
+			 			<input type="hidden" name="action" value="listeo_get_listings">
+			<!-- More Search Options / End -->
+			
+							</form>
+								
+					</div>
+				</div>
+
+			<section class="listings-container margin-top-30" data-select2-id="select2-data-15-lye5">
+				
+
+				<!-- Listings -->
+				<div class="row fs-listings">
+												
+										<div class="col-md-12">
+						<div class="copyrights margin-top-0">© Crée par BRATIL. Tous les droits sont réservés.</div>
+						</div>
+					</div>
+			</section>
+			<!-- Search / End -->
+
+			 
+
+		</div>
+	</div>
+    <div class="fs-inner-container map-fixed hide-map-on-mobile" style="padding-top: 80px;">
+
+		<!-- Map -->
+		<div id="map-container" class="hide-map-on-mobile">
+            <div id="mapid"></div>
+		        <!-- map goes here -->
+		   
+		</div>
+ 		
+	</div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block morejs %} 
+<script>
+    var valididon = L.icon({
+    iconUrl: '/static/admin/img/marker-icon-valid.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1,-34],
+    shadowUrl: '/static/admin/img/marker-shadow.png',
+    shadowSize: [41,41],
+    shadowAnchor: [12, 41]
+});
+
+
+
+
+
+
+    var mymap = L.map('mapid').setView([33.573, -7.589], 7); 
+    
+    L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 15,
+       
+        subdomains:['mt0','mt1','mt2','mt3']
+    }).addTo(mymap);
+ 
+    
+    {% for centre in centres%}
+ 
+
+    marker = L.marker([parseFloat({{centre.latitude|unlocalize}}), parseFloat({{centre.longitude|unlocalize}})]).bindPopup(`
+            <div class="leaflet-popup-content-wrapper">
+            <div class="leaflet-popup-content" style="width: 100%;">
+                <a href="{% url 'desc' centre.nom %}" class="leaflet-listing-img-container">
+                    <img src="{{centre.image_pres.url}}" alt="">
+                    <div class="leaflet-listing-item-content">
+                        <h3 class="arecup">Centre {{centre.nom}} - {{centre.ville.nom}}</h3>
+                        <span>{{centre.adresse}}</span>
+                    </div>
+                </a>
+                <div class="leaflet-listing-content">
+                    <div class="listing-title">
+                        <div class="star-rating">
+                            <span class="not-rated">Not rated yet
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        ).openPopup();
+        marker.addTo(mymap)
+        marker.on('click', onClick);
+
+        
+    {% endfor%}
+    let default_icon = marker.getIcon()
+    let icone_validé = L.marker([0,0])
+    
+    // fonction qui recupere le centre selectiionné  selon le markeur
+    let centre_nom_actuel
+    function getcentrename(){
+        centre_nom = document.getElementsByClassName("arecup")[0].textContent;
+        centre_nom_actuel =  centre_nom;
+        dd = document.getElementById('id_centre');
+        
+
+        for (var i = 0; i < dd.options.length; i++) {
+
+            if (dd.options[i].text == centre_nom) {
+            
+                dd.selectedIndex = i;
+                
+                break;
+            };
+        
+        }
+        
+    }
+    
+   
+    let dict_centre_contrDispo = {{dict_centre_contrDispo|safe}};
+    let dict_titre_contrDispo =  {{dict_titre|safe}};  
+    
+    let selectct = document.getElementById("ct_technique");
+    let selecttr = document.getElementById("tr_propriete");
+    
+   
+
+    function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+  // fonction qui va set la valeur des controle et titre qui correspond au centre
+   
+    function setvalues_contr_dispo(){
+        let e =  centre_nom_actuel;
+        let values = dict_centre_contrDispo[e];
+        let values_titre = dict_titre_contrDispo[e];
+        
+
+        console.log(e);
+        removeAllChildNodes(selectct);
+        removeAllChildNodes(selecttr);
+        
+
+        for(i=0;i<values.length;i++){
+            
+
+            let valeur = values[i];
+            let option = document.createElement("option");
+            option.value = valeur;
+            option.innerHTML = valeur;
+            option.className = "choicesct";
+
+            selectct.appendChild(option);
+
+        }
+       
+        for(i=0;i<values_titre.length;i++){
+            
+            
+            let valeur_titre = values_titre[i];
+           
+            let option = document.createElement("option");
+            option.value = valeur_titre;
+            option.innerHTML = valeur_titre;
+            option.className = "choicestr";
+
+            selecttr.appendChild(option);
+
+        }
+
+    } 
+
+    
+   // fonction qui recupere le centre selectiionné  selon le select et set les valeur correspondant
+
+    function selectdyn(){
+       let  dd = document.getElementById('id_centre');
+       const centrename = dd.options[dd.selectedIndex].text;
+       centre_nom_actuel = centrename;
+       setvalues_contr_dispo();
+       icone_validé.setIcon(default_icon);
+   
+    }
+
+
+    function onClick(e) {
+   
+    if(e.target === icone_validé){
+  
+    }
+    else{
+        icone_validé.setIcon(default_icon);
+        e.target.setIcon(valididon);
+        icone_validé = e.target;
+        
+    }
+    setTimeout(getcentrename,200);
+    setTimeout(setvalues_contr_dispo, 201);
+    
+
+}
+    
+</script>
+{% endblock %}
+

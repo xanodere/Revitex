@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+{% load static %}
+{% load l10n %}
+
+{% block js %}
+<script>
+$(document).ready(function(){
+  $('.carousel').slick({
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 3
+    });
+});			
+</script>
+<script src="{% url 'js-catalog' %}"> </script>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/basetut.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/widgetstut.css" />
+<script type="text/javascript" src="{% static '/admin/js/coretut.js' %}"></script>
+
+{% endblock %}
+  
+{% block titre %}Description centre{% endblock %}
+{% block style %}
+html {
+    scroll-behavior: smooth;
+  }
+  #mapid { height: 380px; }
+  .wrapper{
+    width:100%;
+    padding-top: 20px;
+    text-align:center;
+  }
+
+  .carousel{
+    width:100%;
+    margin:0px auto;
+  }
+
+  .slick-slide img{
+    width:100%;
+
+  }
+  .wrapper .slick-dots li button:before {
+    font-size:20px;
+    color:white;
+  }
+{% endblock style %}
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <p{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} style="text-align: center;">{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+<div class="container">
+	<div class="row">
+		<!-- Sidebar
+		================================================== -->
+		<!-- " -->
+
+		
+					<!--  -->
+		<div class="col-lg-8 padding-right-30">
+			
+			<!-- Titlebar -->
+			<div id="titlebar" class="listing-titlebar">
+				<div class="listing-titlebar-title">
+					<h2>{{centre.get__titre}}
+                        
+                        <span class="listing-tag">
+					    
+                        {% for controle in centre.Controles_dispo.all %}
+                            <a href="./../-category/vehicules-legers/index.html">{{controle.controle_techniques}}</a> ,
+                        {% endfor %}
+                        </span>
+                        {% for titre in centre.Titre_dispo.all %}
+						<span class="listing-tag">
+					        <a href="./../../service-category/cyclomoteur/index.html">{{titre.titre_proprieté}}</a>,
+                        </span>
+                        {% endfor %}
+					</h2>
+					<span>
+						<a href="#listing-location" class="listing-address">
+						<i class="fa fa-map-marker"></i>
+								{{centre.adresse}}							
+                        </a>
+					</span>
+				</div>
+			</div>
+			<!-- Content
+			================================================== -->
+			
+			<!-- Listing Nav -->
+			<div id="listing-nav" class="listing-nav-container">
+				<ul class="listing-nav">
+					<li><a href="#listing-overview" class="">Aperçu</a></li>
+					<li><a href="#listing-gallery" class="">Galerie</a></li>
+												<li><a href="#listing-pricing-list" class="">Services de contrôle</a></li>
+												
+										<li><a href="#listing-location" class="">Localisation</a></li>
+									</ul>
+			</div>
+			<!-- Overview -->
+			<div id="listing-overview" class="listing-section">
+				<!-- Main Details -->
+
+
+				
+				<!-- Description -->
+	
+				<p>{{ centre.description|linebreaks }}</p>
+				
+                <div class="listing-links-container">
+					
+			<ul class="listing-links contact-links">
+								<li><a href="tel:+212 635 000 000" class="listing-links"><i class="fa fa-phone"></i> +212 635 000 000</a></li>
+												<li>
+<a href="mailto:contact@revitex.ma" class="listing-links"><i class="fa fa-envelope-o"></i> contact@revitex.ma</a>
+				</li>
+											</ul>
+			<div class="clearfix"></div>
+			
+	​	<ul class="listing-links">
+				<li><a href="#" target="_blank" class="listing-links-fb"><i class="fa fa-facebook-square"></i> Facebook</a></li>
+						<li><a href="#" target="_blank" class="listing-links-yt"><i class="fa fa-youtube-play"></i> YouTube</a></li>
+						<li><a href="#" target="_blank" class="listing-links-ig"><i class="fa fa-instagram"></i> Instagram</a></li>
+						<li><a href="#" target="_blank" class="listing-links-tt"><i class="fa fa-twitter"></i> Twitter</a></li>
+									
+			</ul>
+	<div class="clearfix"></div>
+	
+</div>
+<div class="clearfix"></div>
+				<!-- Features -->
+<h3 class="listing-desc-headline">Features</h3>
+<ul class="listing-features checkboxes margin-top-0">
+	{% for feature in centre.features.all %}
+	<li>{{ feature.nom }}</li>
+	{% endfor %}
+</ul>			</div>
+
+			<!-- Content
+================================================== -->
+<!-- Slider -->
+<div class="wrapper">
+    <h2 class="listing-desc-headline margin-top-70" style="text-align: left;">Galerie</h2>
+        <div class="carousel listing-slider-small">
+            {% for img in centre.img_gallerie.all %}
+          
+            <a href="{{ img.image.url }}" data-background-image="{{ img.image.url }}" class="item mfp-gallery slick-slide slick-active" data-slick-index="4" style="background-image: url({{ img.image.url }}); width: 254px;" id="" aria-hidden="true" tabindex="-1"></a>
+            {% endfor %}
+        </div>
+  </div>
+
+
+
+<!-- Slider -->
+					
+<!-- Food Menu -->
+<div id="listing-pricing-list" class="listing-section">
+	<h3 class="listing-desc-headline margin-top-70 margin-bottom-30">Services de contrôle</h3>
+
+	<div>		<div class="pricing-list-container">
+			
+			<h4>Points du contrôle technique</h4>					<ul class="">
+													<li>
+								<h5>Contrôler le moteur</h5>								<p>Vérifiez les niveaux d'huile et de liquide de refroidissement. En fonction des niveaux relevés, faites l’appoint en utilisant les produits préconisés par le constructeur.</p>								<span>
+																		$ 21,00									</span>							</li>
+													<li>
+								<h5>Vérifier les pneus et les freins</h5>								<p>En cas de pneus usés et dont les témoins d’usure sont atteints ou comportant des déformations sur les flancs (hernie ou déchirure par exemple), changez-les. N’oubliez pas que les pneumatiques d’un même essieu doivent être de marque et de structure similaires. Pensez également à contrôler la pression des pneus.</p>								<span>
+																		$ 19,00									</span>							</li>
+													<li>
+								<h5>Tester l'éclairage</h5>								<p>Feux de position, de croisement, de route avant et arrière, clignotants, feux stop, warning, et même éclairage de la plaque d’immatriculation… Vérifiez que tous les feux fonctionnent au moment de préparer votre voiture avant le contrôle technique.</p>								<span>
+																		$ 15,00									</span>							</li>
+											</ul>
+					
+				
+					
+				
+			
+		</div>
+	</div>
+	
+</div>
+									<!-- Location -->
+<!-- Location -->
+<div id="map-container" class="margin-bottom-40">
+	<h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Localisation</h3>
+	<div id="singleListingMap-container" class=" ">
+	
+	<div id="mapid">
+		
+						<!--<a target="_blank" href="https://www.google.com/maps/dir/?api=1&amp;destination=34.04964476892557,-5.036039918229039" id="getDirection">Get Direction</a>-->
+	</div>
+</div>
+</div>
+
+
+						
+		</div>
+				
+<div class="col-lg-4 col-md-4  margin-top-75 sticky">
+
+											<!-- Verified Badge -->
+						<div class="verified-badge with-tip" data-tip-content="Le centre a été vérifié et appartient au propriétaire ou au gestionnaire de l'entreprise ." style="">
+							<i class="sl sl-icon-check"></i> Verified Listing						<div class="tip-content" style="width: 0px; max-width: 0px;">Le centre a été vérifié et appartient au propriétaire ou au gestionnaire de l'entreprise .</div></div>
+										<div id="widget_booking_listings-2" class="listing-widget widget listeo_core boxed-widget booking-widget margin-bottom-35">
+<h3 class="widget-title margin-bottom-35">
+<i class="fa fa-calendar-check"></i> Prise de Rendez-vous</h3>
+		<div class="row with-forms  margin-top-0" id="booking-widget-anchor">		
+			<form  novalidate id="form-booking"  class="form-booking-service" method="GET">
+				
+					{{ form.media }}
+					
+					{{form.Date.errors}}				
+					<div class="col-lg-12">
+						
+						{{form.Date}}
+					</div>
+					{{form.ct_technique.errors}}
+					<div class="col-lg-12">
+						<p class="datetime" style="margin: 7px 0 7px 0;">{{form.ct_technique.label}}</p>
+						{{form.ct_technique}}
+					</div>					
+					<div class="col-lg-12">
+						<p class="datetime" style="margin: 7px 0 7px 0;">{{form.tr_propriete.label}}</p>
+						{{form.tr_propriete}}
+					</div>
+					{{form.GSM.errors}}
+					<div class="col-lg-12">
+						<p class="datetime" style="margin: 7px 0 7px 0;">{{form.GSM.label}}</p>
+						{{form.GSM}}
+					</div>	
+					{{form.email.errors}}
+					<div class="col-lg-12">
+						<p class="datetime" style="margin: 7px 0 7px 0;">{{form.email.label}}</p>
+						{{form.email}}
+					</div>	
+</div>
+				
+								
+				<input  type="submit" value="Envoyer le formulaire" class="button book-now fullwidth margin-top-5">
+			</div>
+</form>				
+
+<div id="widget_opening_hours-2" class="listing-widget widget listeo_core boxed-widget opening-hours margin-bottom-35">                <div class="listing-badge now-closed">Mnt Fermé</div>
+        <h3 class="widget-title margin-bottom-35">
+<i class="sl sl-icon-clock"></i> Horaires d’ouvertures</h3>		<ul>
+								
+					<li>Lundi<span>								
+									{{ centre.heure_ouverture }} 
+									- 
+									{{ centre.heure_fermeture }}  <br>							 </span>
+</li>				
+
+								
+					<li>Mardi<span>								
+						{{ centre.heure_ouverture }} 
+									- 
+									{{ centre.heure_fermeture }}<br>							 </span>
+</li>				
+
+								
+					<li>Mercredi<span>								
+						{{ centre.heure_ouverture }}  
+									- 
+									{{ centre.heure_fermeture }}<br>							 </span>
+</li>				
+
+								
+					<li>Jeudi<span>								
+						{{ centre.heure_ouverture }} 
+									- 
+									{{ centre.heure_fermeture }}<br>							 </span>
+</li>				
+
+								
+					<li>Vendredi<span>								
+						{{ centre.heure_ouverture }} 
+									- 
+									{{ centre.heure_fermeture }}<br>							 </span>
+</li>				
+
+								
+					<li>Samedi<span>								
+						{{ centre.heure_ouverture }} 
+									- 
+									{{ centre.heure_fermeture }}<br>							 </span>
+</li>				
+
+								
+												<li>Dimanche<span>Closed</span>
+						
+						</li>
+									
+
+					</ul>
+				
+		</div>
+<div id="widget_buttons_listings-2" class="listing-widget widget listeo_core widget_buttons">		<div class="listing-share margin-top-40 margin-bottom-40 no-border">
+
+					 		<ul class="share-buttons margin-bottom-0">
+			          <li><a target="_blank" class="fb-share" href="https://www.facebook.com/sharer/sharer.php?u=.%2Flisting%2Fcentre-f1-fes%2F"><i class="fa fa-facebook"></i> Share</a></li>
+			         <li><a target="_blank" class="twitter-share" href="https://twitter.com/share?url=.%2Flisting%2Fcentre-f1-fes%2F&amp;text=" title="Twitter"><i class="fa fa-twitter"></i> Tweet</a></li>
+			        <li><a target="_blank" class="pinterest-share" href="http://pinterest.com/pin/create/button/?url=.%2Flisting%2Fcentre-f1-fes%2F&amp;description=&amp;media=.%2Fwp-content%2Fuploads%2F2021%2F07%2Fcentre-01-300x200.jpg" onclick="window.open(this.href); return false;"><i class="fa fa-pinterest-p"></i> Pin It</a></li>
+			        </ul>
+			
+					<div class="clearfix"></div>
+		
+	 		 		</div>
+	 	</div>			</div>
+			<!-- Sidebar / End -->
+			</div>
+</div>
+<script>
+ 
+ // leaflet 
+ var valididon = L.icon({
+ iconUrl: '/static/admin/img/marker-icon-valid.png',
+ iconSize: [25, 41],
+ iconAnchor: [12, 41],
+ popupAnchor: [1,-34],
+ shadowUrl: '/static/admin/img/marker-shadow.png',
+ shadowSize: [41,41],
+ shadowAnchor: [12, 41]
+});
+
+
+
+
+
+ var mymap = L.map('mapid').setView([{{centre.latitude|unlocalize}}, {{centre.longitude|unlocalize}}], 14 );
+ 
+ L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+	 maxZoom: 15,
+	
+	 subdomains:['mt0','mt1','mt2','mt3']
+ }).addTo(mymap);
+
+ 
+ 
+
+
+ marker = L.marker([parseFloat({{centre.latitude|unlocalize}}), parseFloat({{centre.longitude|unlocalize}})]).bindPopup(`
+		 <div class="leaflet-popup-content-wrapper">
+		 <div class="leaflet-popup-content" style="width: 100%;">
+			 <a href="{% url 'desc' centre.nom %}" class="leaflet-listing-img-container">
+				 <img src="{{centre.image_pres.url}}" alt="">
+				 <div class="leaflet-listing-item-content">
+					 <h3 class="arecup">Centre {{centre.nom}} - {{centre.ville.nom}}</h3>
+					 <span>{{centre.adresse}}</span>
+				 </div>
+			 </a>
+			 <div class="leaflet-listing-content">
+				 <div class="listing-title">
+					 <div class="star-rating">
+						 <span class="not-rated">Not rated yet
+
+						 </span>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	 </div>`
+	 ).openPopup();
+	 marker.addTo(mymap)
+
+
+
+</script>
+{% endblock %}
+
+

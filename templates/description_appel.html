@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+{% load static %}
+{% load l10n %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block titre %} desc_appel {% endblock %}
+
+
+{% block style %}
+figure{
+    font-size : 15px;
+}
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+	
+    
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <h2>Appels d’offres</h2>
+                    <span>Création des centres de visite technique</span>
+        
+                    <!-- Breadcrumbs -->
+                                        <nav id="breadcrumbs">
+                            <ul>
+                                <!-- Breadcrumb NavXT 6.6.0 -->
+    <li class="home"><span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Revitex." href="https://bratil.ma/revitex" class="home"><span property="name">Revitex</span></a><meta property="position" content="1"></span></li>
+    <li class="post-root post post-post"><span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Appels d’offres." href="https://bratil.ma/revitex/appels-doffres/" class="post-root post post-post"><span property="name">Appels d’offres</span></a><meta property="position" content="2"></span></li>
+    <li class="taxonomy category"><span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to the Appel d'offre category archives." href="https://bratil.ma/revitex/category/appel-d-offre/" class="taxonomy category"><span property="name">Appel d'offre</span></a><meta property="position" content="3"></span></li>
+    <li class="post post-post current-item"><span property="itemListElement" typeof="ListItem"><span property="name" class="post post-post current-item">Appel à la concurrence pour la création de centres de contrôle technique N°03 /CNEH/DTRSR/2016</span><meta property="url" content="https://bratil.ma/revitex/appel-concurrence-creation-centres-controle-technique-2016/"><meta property="position" content="4"></span></li>
+                            </ul>
+                        </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content
+    ================================================== -->
+    <div class="container ">
+    
+        <!-- Blog Posts -->
+        <div class="blog-page">
+        <div class="row">
+    
+    
+            <!-- Post Content -->
+            <div class="col-lg-9 col-md-8 padding-right-30">
+    
+                
+                    <div class="blog-post single-post" id="post-421">
+                                  <img src="https://bratil.ma/revitex/wp-content/uploads/2021/07/appel-offre-1-900x500.jpg" class="post-img" alt="Appel à la concurrence pour la création de centres de contrôle technique N°03 /CNEH/DTRSR/2016">
+            
+         <!-- Content -->
+      <div class="post-content">
+        <h3>{{appel.titre}}</h3>
+          <ul class="post-meta"><li><time class="entry-date published" datetime="2021-07-10T22:01:40+02:00">{{appel.date}}</time><time class="updated" datetime="2021-07-10T22:02:39+02:00">10 juillet 2021</time></li></ul>      
+          
+    <p>{{ appel.description|linebreaks }}</p>
+    
+    
+    
+    <h4><strong>Liste des villes</strong></h4>
+    
+    
+    
+    <figure class="wp-block-table is-style-stripes">
+        <table>
+            <tbody>
+                <tr>
+                    {% for ville in appel.villes.all %}
+                    <td>{{ville.nom}}</td>
+                {% if forloop.counter|mod:3 == 0 %}
+                </tr>
+                {% endif %}
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+    
+    
+    
+    <hr class="wp-block-separator">
+    
+    
+    
+    <h4><strong>Liste les documents</strong></h4>
+    
+    
+    
+    <figure class="wp-block-table is-style-stripes">
+        <table>
+            <tbody>
+            {% for docu in appel.document.all %}
+            <tr>
+                <td class="has-text-align-left" data-align="left">
+                    <a href="{{docu.document.url}}" data-type="URL" target="_blank">
+                        {{docu.titre}}</a>
+                    </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+                  
+            </div>				</div>
+                
+                    
+        				
+              
+                <div class="clearfix"></div>
+            
+                <div class="margin-top-50"></div>
+    
+        </div>
+        <!-- Content / End -->
+    
+            <div class="col-lg-3 col-md-4">
+            <div class="sidebar right">
+                    
+                <aside id="secondary" class="widget-area" role="complementary">
+                    <section id="search-2" class="widget  margin-top-40 widget_search"><h3 class="widget-title">Trouver une appel d’offre</h3><div class="search-blog-input">
+                <form method="get" class="search-form" action="{% url 'appels' %}">
+                    <div class="input">{{ searchform }}</div>
+                <div class="clearfix"></div>
+                </form>
+            </div>
+            <div class="clearfix"></div></section><section id="text-4" class="widget  margin-top-40 widget_text"><h3 class="widget-title">Vous avez une question ?</h3>			<div class="textwidget"><div class="info-box margin-bottom-10">
+            <p>Si vous avez des questions, n’hésitez pas à demander.</p>
+            <p><a class="button fullwidth margin-top-20" href="../Contact/">Contactez-nous</a></p>
+            </div>
+            </div>
+                </section>      
+                      <section id="listeo-recent-posts-3" class="widget  margin-top-40 listeo_recent_entries">        <h3 class="widget-title">Appels d’offres populaires</h3>        <ul class="widget-tabs">
+                                
+                        {% for pop in pops %}
+                        <li>
+                            <div class="widget-content">
+                                                <div class="widget-thumb">
+                                <a href="../desc_appel/{{ pop.id }}"><img width="150" height="150" src="{{ pop.image.url }}" sizes="(max-width: 150px) 100vw, 150px"></a>
+                            </div>
+                            
+                            <div class="widget-text">
+                                <h5><a href="../desc_appel/{{ pop.id }}">{{ pop.titre }}</a></h5>
+                                <span>{{ pop.date }}</span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+                    {% endfor %}    
+                            </ul>
+                    </section>        	 <div class="margin-top-40"></div>
+            </aside><!-- #secondary -->
+                            </div>
+                        </div>
+                        <!-- Sidebar / End -->
+                    </div>
+        </div>
+        
+    </div>
+    
+   
+    
+
+{% endblock %}

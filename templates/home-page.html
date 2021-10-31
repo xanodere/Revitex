@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+{% load static %}
+{% load l10n %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block titre %} {% endblock %}
+
+
+{% block style %}
+.flex{
+
+    flex-wrap: wrap;
+    display: flex;
+    align-items: stretch;
+    justify-content: center
+}
+.blog-compact-item{
+    flex-basis: 30%;
+    margin: 20px;
+    min-width : 300px
+    
+}
+.icon-box-2{
+    flex-basis: 30%;
+    margin: 20px;
+    min-width : 300px
+}
+.borde{
+    text-align: center;
+    min-width: 130px;
+    top: 0;
+    position: relative;
+    font-size: 15px;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    margin-right: 6px;
+    overflow: hidden;
+    border-radius: 50px;
+    padding: 9px 21px;
+    font-weight: 500;
+    
+    }
+.borde1{
+    background-color: transparent;
+    border: 1px solid #0315a4;
+    color: #0315a4;
+}
+.borde2{
+    background-color: #D5E600;
+    color: white;
+}
+.borde1:hover{
+    text-decoration: none;
+    background-color:#0315a4;
+    color : white;
+}
+.borde2:hover{
+    color: #D5E600;
+    border: 1px solid #D5E600;
+    background-color: transparent;
+    text-decoration: none;
+}
+.dark{
+    background-color: #16171D;
+}
+.item1{
+    flex-basis:40%;
+    min-width : 300px
+}
+item2{
+    flex-basis:60%
+}
+@media (max-width: 1313px){
+    .item2{
+         margin:0;
+    }
+}
+option, select{
+    font-size:15px;
+}
+{% endblock %}
+
+{% block content %}
+<body class="transparent-header">
+    
+
+</body>
+{% endblock %}
+{% block home %}
+<div class="main-search-container   dark-overlay">
+	<div class="main-search-inner">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					
+					<h2>Trouver à proximité <span class="typed-words">Nos Centres de visite technique</span><span class="typed-cursor typed-cursor--blink">|</span></h2>
+					<h4>Explorez les attractions, les activités et plus encore les mieux notées !</h4>
+					
+							<form action="../rech_centre" id="listeo_core-search-form"  method="GET">
+					<div class="main-search-input">
+							
+									<div class="main-search-input-item location">
+				<div class=" ">
+	<div id="autocomplete-container">
+		{{form.ville}}
+	</div>
+</div>
+					</div>
+									<div class="main-search-input-item select-taxonomy">
+				
+<div class="  ">
+	{{form.Contrôle_technique}}
+</div>
+					</div>
+									<div class="main-search-input-item select-taxonomy">
+				
+<div class="  ">
+	{{form.Titre_proprieté}}
+</div>
+					</div>
+							
+			
+			 			<input type="hidden" name="action" value="listeo_get_listings">
+			<!-- More Search Options / End -->
+			
+							<!-- DEVELOPPER -->
+				<button class="button">Rechercher</button>
+			</div>
+							</form>
+							
+
+					
+				</div>
+			</div>
+
+			
+			
+		</div>
+		<!-- Video -->
+	<div class="video-container">
+		<video poster="https://listeosetupwiz.wpengine.com/wp-content/uploads/2018/11/main-search-video-poster.jpg" loop="" autoplay="" muted="">
+			<source src="https://listeosetupwiz.wpengine.com/wp-content/uploads/2018/11/main-search-video.mp4" type="video/mp4">
+			
+		</video>
+	</div>
+		</div>
+</div>
+
+<!-- container controle technique-->
+<div class="container page-container home-page-container margin-top-50 margin-bottom-50">
+    <div>
+        <h3 style="text-align:center;" class="headline  headline-aligned-to-center headline-extra-spacing headline-box "> Type de votre véhicule ? </h3>
+    </div>
+    <div class="elementor-element elementor-element-4c0184d7 elementor-widget elementor-widget-listeo-taxonomy-grid" data-id="4c0184d7" data-element_type="widget" data-widget_type="listeo-taxonomy-grid.default">
+        <div class="elementor-widget-container">
+    
+<div class="categories-boxes-container margin-top-5 margin-bottom-30">
+    
+    <!-- Item -->
+                <a href="https://bratil.ma/revitex/listing-category/vehicules-legers/" class="category-small-box">
+         <i class="fa fas fa-car"></i>				<h4>1. Véhicules légers</h4>
+                                    </a>
+
+                <a href="https://bratil.ma/revitex/listing-category/poids-lourd-moins-15/" class="category-small-box">
+         <i class="fa fas fa-truck"></i>				<h4>2. Poids Lourds (-15)</h4>
+                                    </a>
+
+                <a href="https://bratil.ma/revitex/listing-category/poids-lourd-plus-15/" class="category-small-box">
+         <i class="fa fas fa-truck-moving"></i>				<h4>3. Poids Lourds (+15)</h4>
+                                    </a>
+
+            </div>
+
+         </div>
+        </div>
+</div>
+
+
+<!-- container Engagement-->
+<div>
+    <h3 style="text-align:center;" class="headline  headline-aligned-to-center headline-extra-spacing headline-box  headline-with-subtitle ">
+        NOS ENGAGEMENTS
+        <span> Vous assurer des prestations 100% conformes</span>
+    </h3>
+    
+    
+</div>
+<div class="container page-container home-page-container margin-bottom-50">
+    <div class="flex">
+        <div class="icon-box-2">
+            <i aria-hidden="true" class="fas fa-check"></i>					
+            <h3>Vous proposer des prix imbattables remisés toute l’année</h3>
+           <p>Avoir accès à des contrôles techniques moins chers toute l’année, c’est l’essence même de notre concept. Nous vous garantissons 100% de prix promotionnels sur l’ensemble des 300 centres référencés sur notre site.</p>
+        </div>
+        <div class="icon-box-2">
+            <i aria-hidden="true" class="fas fa-headset"></i>					
+            <h3>Vous proposer une aide personnalisée pour réserver votre contrôle technique</h3>
+           <p>Que vous ayez besoin d’informations complémentaires ou que vous souhaitiez être accompagné(e) par Revitex dans le processus de réservation par téléphone au 05 00 00 00  ou via le tchat en ligne en bas à droite de votre écran, vous pouvez compter sur notre service client. Disponible du lundi au vendredi, de 9h à 13h et de 14h à 17h, notre équipe basée au Pays basque à Biarritz répondra à toutes vos questions.</p>
+        </div>
+        <div class="icon-box-2">
+            <i aria-hidden="true" class="fas fa-user-lock"></i>					
+            <h3>Sécuriser les transactions financières</h3>
+           <p>Nous utilisons un formulaire de paiement sécurisé par notre partenaire Payline. L’adresse de notre site préfixée par https indique que vous êtes sur un site sécurisé et que vos données sont cryptées. Pas d’inquiètude, nous ne vendons pas vos données personnelles, vous pouvez procéder à votre réservation en toute confiance.</p>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <h3 style="text-align:center;" class="headline  headline-aligned-to-center headline-extra-spacing headline-box  headline-with-subtitle ">
+        Appels d'offres
+        <span> Création et exploitation des centres de visite technique au maroc</span>
+    </h3>
+    
+    
+</div>
+<div class="container page-container home-page-container margin-bottom-50">
+    <div class="flex">
+        {% for appel in appels %}
+            {% if forloop.counter < 4%}
+        <div class="blog-compact-item">
+            <img width="577" height="321" src="{{appel.image.url}}" class="attachment-listeo-blog-related-post size-listeo-blog-related-post wp-post-image" alt="" loading="lazy"><span class="blog-item-tag">Appel d'offre</span>                        
+                <div class="blog-compact-item-content">
+                    <ul class="blog-post-tags">
+                        <li>
+                            <time class="entry-date published" datetime="2021-07-10T22:01:40+02:00">{{ appel.date }}</time>
+                        </li>
+                    </ul>
+                    <h3>{{appel.titre}}</h3>
+                    <p>{{appel.description|truncatechars:100}}</p>
+                </div>
+      
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="col-md-12 centered-content margin-bottom-70">
+        <!-- DEVELOPPER -->
+        <a href="{% url 'appels' %}" class="borde borde1 margin-top-30">Voir tout</a>
+    </div>
+
+</div>
+<div class="px-50 py-5 dark">
+<div class="w-75 mx-auto page-container home-page-container margin-bottom-50 margin-top-50">
+            <div class="flex">
+                <div class="item1" style="color:white;">
+                    <h2 class="margin-bottom-30" style="font-size: 24px;">À Propos</h2>
+                    <p style="font-size: 19px;">
+                        We’re full-service, local agents who know how to find people and home each together. We use online tools with an unmatched search capability to make you smarter and faster. We’re full-service, local agents who know how to find people and home each together. We use online tools with an unmatched search capability to make you smarter and faster. We’re full-service, local agents who know how to find people and home each together. We use online tools with an unmatched search capability to make you smarter and faster.
+                    </p>
+                    <a href="https://bratil.ma/revitex/appels-doffres/" class="borde borde2 margin-top-30">Voir tout</a>
+                </div>
+                <div class="item2 margin-left-50 margin-top-30" >
+                    <iframe frameborder="" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="YouTube video player" width="533,33" height="300" src="https://www.youtube.com/embed/XHOmBV4js_E?controls=1&amp;rel=0&amp;playsinline=0&amp;modestbranding=0&amp;autoplay=0&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fbratil.ma&amp;widgetid=1" id="widget2"></iframe>
+                </div>
+            </div>
+ </div>
+</div>
+<script>
+    options= document.querySelectorAll("#autocomplete-container > option:nth-child(1)")
+    console.log(options)
+    options[0].innerHTML="Ville"
+    options[0].disabled =true
+    options[0].hidden =true
+    options[1].innerHTML="Contrôle technique"
+    options[1].disabled =true
+    options[1].hidden =true
+    options[2].innerHTML="Titre de propriété"
+    options[2].disabled =true
+    options[2].hidden =true
+</script>
+{% endblock %}

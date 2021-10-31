@@ -1,0 +1,271 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+   
+    <!--font relaway-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="/static/admin/css/style.css">
+    <link rel="stylesheet" href="/static/admin/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/static/admin/css/index.css">
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="/static/admin/css/simple-line-icons.css" type="text/css">
+    
+    
+    <script src="/static/admin/js/jquery-3.6.0.min.js" ></script>
+    <script src="/static/admin/js/mmenu.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
+
+<!-- script du site revtix slick : carousel tiptip: manip de la fenetre counter-up pour le num contage-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js" id="magnific-popup-min-js" ></script> 
+<script type="text/javascript" src="/static/admin/js/slick.min.js" id="slick-min-js"></script> 
+<script type="text/javascript" src="https://cdnout.com/jquery.tiptip" ></script> 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" ></script>
+
+    {% block js %}
+    
+    {% endblock %}
+    <title>Revitex – Vie en sécurité</title>
+    <style>
+    .sign-in:hover{
+    text-decoration: none;
+    background-color:#0315a4;
+    color : white;
+    }
+    .sign-in{
+        line-height: 27px;
+    }
+    .ohh>a{
+        font-size: 12px;
+    }
+    {% block style %}
+        
+    {% endblock style %}
+   
+  </style>
+    
+</head>
+  <body>
+    <div id="wrapper">
+      <header id="header-container" class="sticky-header ">
+  
+          <!-- Header -->
+          <div id="header">
+              <div class="container">
+                              <!-- Left Side Content -->
+                  <div class="left-side">
+                      <div id="logo">
+                                                      <a href="{% url 'home' %}" title="Revitex" rel="home"><img src="/static/admin/img/revitex-logo.png" data-rjs="" alt="Revitex"></a>
+                                                  </div>
+                    
+                      
+                      <!-- Mobile Navigation -->
+                      <div class="mmenu-trigger ">
+                          <button class="hamburger hamburger--collapse" type="button">
+                              <span class="hamburger-box">
+                                  <span class="hamburger-inner"></span>
+                              </span>
+                          </button>
+                      </div>
+                      
+      
+      
+                      <!-- Main Navigation -->
+                      <nav id="navigation" class="style-1">
+                          <ul id="responsive" class="menu">
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-236 parentid0 depth0 dropdown"><a href="{% url 'home' %}">Accueil</a></li>
+      
+    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-236 parentid0 depth0 dropdown"><a href="{% url 'Le_controle' %}">Le Contrôle technique</a></li>  
+   
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-288 parentid0 depth0 dropdown">
+      <a href="{% url 'appels' %}">Appels d’offres</a>
+      <ul class="sub-menu ">
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-289 parentid288 depth1 dropdown ohh"><a href="{% url 'appels' %}">Liste des Appels d’offres</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-275 parentid288 depth1 dropdown ohh"><a href="./../linvestissement-avec-revitex/index.html">L’investissement avec Revitex</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-275 parentid288 depth1 dropdown ohh"><a href="{% url 'Simu' %}">Simulateur de rendement</a></li>
+      
+      </ul>
+      </li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-462 parentid0 depth0 dropdown"><a href="{% url 'dude' %}">Nos centres</a></li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-413 parentid0 depth0 dropdown"><a href="{% url 'test' %}">Rendez vous</a></li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-401 parentid0 depth0 dropdown"><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>			
+                      </nav>
+                      <div class="clearfix"></div>
+                      <!-- Main Navigation / End -->
+                      
+                  </div>
+                  
+                  <!-- Left Side Content / End -->
+                   
+                  <!-- Right Side Content / End -->
+      
+                  <div class="right-side">
+                      <div class="header-widget">
+                                              
+                      <a href="{% url 'admin:login' %}" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Se connecter</a>
+                  
+      
+                      </div>
+                  </div>
+      
+                  <!-- Right Side Content / End -->
+                              
+              </div>
+          </div><div id="header" class="cloned unsticky">
+              <div class="container">
+                              <!-- Left Side Content -->
+                  <div class="left-side">
+                      <div id="logo" data-logo-transparent="/static/admin/img/revitex-logo.png" data-logo="http://localhost/revitexweb/wp-content/uploads/2021/07/revitex-logo.png">
+                                                      <a href="./../index.html" title="Revitex" rel="home"><img src="/static/admin/img/revitex-logo.png" data-rjs="" alt="Revitex"></a>
+                                                  </div>
+                    
+                      
+                      <!-- Mobile Navigation -->
+                      <div class="mmenu-trigger ">
+                          <button class="hamburger hamburger--collapse" type="button">
+                              <span class="hamburger-box">
+                                  <span class="hamburger-inner"></span>
+                              </span>
+                          </button>
+                      </div>
+                      
+      
+      
+                      <!-- Main Navigation -->
+                      <nav id="navigation" class="style-1">
+                          <ul id="responsive" class="menu">
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-236 parentid0 depth0 dropdown"><a href="./../index.html">Accueil</a></li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-239 parentid0 depth0 dropdown">
+      <a href="./../le-controle-technique/index.html">Contrôle technique</a>
+      <ul class="sub-menu ">
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-240 parentid239 depth1 dropdown"><a href="./../le-controle-technique/index.html">Le Contrôle technique</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-256 parentid239 depth1 dropdown"><a href="./../tarification/index.html">Tarification</a></li>
+      
+      </ul>
+      </li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-288 parentid0 depth0 dropdown">
+      <a href="./../appels-doffres/index.html">Appels d’offres</a>
+      <ul class="sub-menu ">
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-289 parentid288 depth1 dropdown ohh"><a href="./../appels-doffres/index.html">Liste des Appels d’offres</a></li>
+          <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-275 parentid288 depth1 dropdown ohh"><a href="./../linvestissement-avec-revitex/index.html">L’investissement avec Revitex</a></li>
+      
+      </ul>
+      </li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-448 current_page_item menu-item-462 parentid0 depth0 dropdown"><a href="./index.html">Nos centres</a></li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-413 parentid0 depth0 dropdown"><a href="./../prise-de-rendez-vous/index.html">Rendez vous</a></li>
+      <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-401 parentid0 depth0 dropdown"><a href="./../contactez-nous/index.html">Contact</a></li>
+      </ul>			
+                      </nav>
+                      <div class="clearfix"></div>
+                      <!-- Main Navigation / End -->
+                      
+                  </div>
+                  
+          
+                   
+                  <!-- Right Side Content / End -->
+      
+                  <div class="right-side">
+                      <div class="header-widget">
+                                              
+                      <a href="#sign-in-dialog" class="sign-in popup-with-zoom-anim"><i class="sl sl-icon-login"></i> Se connecter</a>
+                  
+      
+                      </div>
+                  </div>
+      
+                  <!-- Right Side Content / End -->
+                              
+              </div>
+          </div>
+          <!-- Header / End -->
+      
+      </header>
+      {% block home %}{% endblock %}
+  </div>
+   
+       
+      {% block content %}
+        {% endblock %}
+    
+        <div id="footer" class="light ">
+            <!-- Main -->
+            <div class="container">
+                <div class="row">
+                                     <div class="col-md-3 col-sm-6 col-xs-12">
+                            <aside id="text-2" class="footer-widget widget widget_text">			<div class="textwidget"><p><img loading="lazy" class="wp-image-319 alignnone" src="http://localhost/revitexweb/wp-content/uploads/2021/07/revitex-logo-300x173.png" alt="" width="87" height="50" srcset="https://bratil.ma/revitex/wp-content/uploads/2021/07/revitex-logo-300x173.png 300w, https://bratil.ma/revitex/wp-content/uploads/2021/07/revitex-logo.png 377w" sizes="(max-width: 87px) 100vw, 87px"></p>
+        <p><strong>Revitex</strong> convallis bibendum urna ut viverra. Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper.</p>
+        </div>
+                </aside>	            </div>
+                                     <div class="col-md-3 col-sm-6 col-xs-12">
+                            <aside id="nav_menu-2" class="footer-widget widget widget_nav_menu"><h4>Liens</h4><div class="menu-footer-menu-container"><ul id="menu-footer-menu" class="menu"><li id="menu-item-332" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-332"><a href="https://bratil.ma/revitex/">Accueil</a></li>
+        <li id="menu-item-502" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-502"><a href="https://bratil.ma/revitex/a-propos/">À Propos</a></li>
+        <li id="menu-item-331" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-331"><a href="https://bratil.ma/revitex/le-controle-technique/">Contrôle technique</a></li>
+        <li id="menu-item-329" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-329"><a href="https://bratil.ma/revitex/linvestissement-avec-revitex/">L’investissement avec Revitex</a></li>
+        <li id="menu-item-544" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-290 current_page_item menu-item-544"><a href="https://bratil.ma/revitex/contactez-nous/" aria-current="page">Contactez-nous</a></li>
+        </ul></div></aside>	            </div>
+                                     <div class="col-md-3 col-sm-6 col-xs-12">
+                            <aside id="text-7" class="footer-widget widget widget_text"><h4>Contactez-nous</h4>			<div class="textwidget"><p>REVITEX<br>
+        Villa 295, la Siesta 28800 Mohammedia – Maroc<br>
+        Téléphone: +212(0)5 777-777<br>
+        E-Mail: <a href="#">contact@revitex.ma</a></p>
+        </div>
+                </aside><aside id="custom_html-3" class="widget_text footer-widget widget widget_custom_html"><div class="textwidget custom-html-widget"><div id="footer-social-icons">        
+            <ul class="revi-social-icons">
+                <li>
+                    <a target="_blank" class="revi-social-icon twitter" href="#" rel="noopener">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" class="revi-social-icon linkedin" href="#" rel="noopener">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" class="revi-social-icon facebook" href="#" rel="noopener">
+                        <i class="fab fa-facebook-square"></i>
+                    </a>
+                </li>
+            </ul>
+        </div></div></aside>	            </div>
+                                     <div class="col-md-3 col-sm-6 col-xs-12">
+                            <aside id="text-6" class="footer-widget widget widget_text"><h4>MAPS</h4>			<div class="textwidget"><p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13274.95062443067!2d-7.357926959868496!3d33.71573670872969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7b147a181cd53%3A0xc78f0e0082ec4cf9!2sVilla%20La%20Siesta!5e0!3m2!1sfr!2sma!4v1627475671393!5m2!1sfr!2sma" style="border:0;" allowfullscreen="" loading="lazy"></iframe></p>
+        </div>
+                </aside>	            </div>
+                    
+                </div>
+                <!-- Copyright -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="copyrights"> © Crée par BRATIL. Tous les droits sont réservés.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+  
+    {% block morejs %} {% endblock %}
+  </body>
+</html>
+
+

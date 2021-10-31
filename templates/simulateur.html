@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+{% load l10n %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block titre %} Simulateur de rendement {% endblock %}
+
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+<div id="titlebar" class="solid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h2>Simulateur de rendement</h2>
+                                                    <nav id="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">
+                        <ul>
+                            <!-- Breadcrumb NavXT 6.6.0 -->
+<li class="home"><span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Revitex." href="https://bratil.ma/revitex" class="home"><span property="name">Revitex</span></a><meta property="position" content="1"></span></li>
+<li class="post post-page current-item"><span property="itemListElement" typeof="ListItem"><span property="name" class="post post-page current-item">Simulateur de rendement</span><meta property="url" content="https://bratil.ma/revitex/simulateur-de-rendement/"><meta property="position" content="2"></span></li>
+                        </ul>
+                    </nav>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container right-sidebar">
+
+	<div class="row">
+
+		<article id="post-538" class="col-blog col-lg-9 col-md-8 padding-right-30 page-container-col post-538 page type-page status-publish hentry">
+			
+<h2><strong>Qu’est-ce que le retour sur investissement ?</strong></h2>
+
+
+
+<p>Le ROI est un indicateur financier mesurant la rentabilité d’un projet, d’un investissement, d’une action, d’une campagne marketing, etc. Il peut se résumer par la phrase suivante : &nbsp;» <em>si je mets cette somme dans le projet, combien est-ce que cela va me rapporter ?</em> &nbsp;» Soit quel est le bénéfice obtenu en retour par rapport aux coûts engagés ?</p>
+
+
+
+<p>Par exemple : <em>j’investis 1000 € et le projet me rapporte 2000€ (net), le ROI est de 200%.&nbsp;&nbsp;</em></p>
+
+
+
+<p>Il s’exprime en pourcentage (taux de retour sur investissement) ou en valeur. Exemple : ROI de 200% ou de 2x&nbsp; (j’investis 1€ et je gagne 2€).</p>
+
+			 
+			
+		</article>
+		
+					<div class="col-lg-3 col-md-4">
+				<div class="sidebar left">
+					
+<aside id="secondary" class="widget-area" role="complementary">
+		<section id="search-2" class="widget  margin-top-40 widget_search"><h3 class="widget-title">Trouver une appel d’offre</h3><div class="search-blog-input">
+    <form method="get" class="search-form" action="{% url 'appels' %}">
+        <div class="input">{{ searchform }}</div>
+	<div class="clearfix"></div>
+    </form>
+</div>
+<div class="clearfix"></div></section><section id="text-4" class="widget  margin-top-40 widget_text"><h3 class="widget-title">Vous avez une question ?</h3>			<div class="textwidget"><div class="info-box margin-bottom-10">
+<p>Si vous avez des questions, n’hésitez pas à demander.</p>
+<p><a class="button fullwidth margin-top-20" href="../Contact/">Contactez-nous</a></p>
+</div>
+</div>
+	</section>      
+          <section id="listeo-recent-posts-3" class="widget  margin-top-40 listeo_recent_entries">        <h3 class="widget-title">Appels d’offres populaires</h3>        <ul class="widget-tabs">
+                    
+            {% for pop in pops %}
+            <li>
+                <div class="widget-content">
+                                    <div class="widget-thumb">
+                    <a href="../desc_appel/{{ pop.id }}"><img width="150" height="150" src="{{ pop.image.url }}" sizes="(max-width: 150px) 100vw, 150px"></a>
+                </div>
+                
+                <div class="widget-text">
+                    <h5><a href="../desc_appel/{{ pop.id }}">{{ pop.titre }}</a></h5>
+                    <span>{{ pop.date }}</span>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </li>
+        {% endfor %}    
+                </ul>
+        </section>        	 <div class="margin-top-40"></div>
+</aside><!-- #secondary -->
+				</div>
+			</div>
+			<!-- Sidebar / End -->
+		
+		
+	</div>
+
+</div>
+
+
+{% endblock %}

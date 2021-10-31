@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load static %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block titre %}Centres{% endblock %}
+
+{% block style %} 
+.flex{
+    display: flex;
+	align-items: stretch ;
+	margin: 0 0 45px 0;
+}
+a.read-more{
+    font-size:15px
+}
+.img-container{
+	max-width: 350px;
+	flex-basis: 100%;
+}
+img{
+	height:100%;
+}
+{% endblock %}
+
+{% block content %}
+<!-- titlebar -->
+<div id="titlebar" class="gradient">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				
+				<h2>Centres</h2>
+				<span>Nos centres a votre disposition</span>
+	
+				<!-- Breadcrumbs -->
+				                    <nav id="breadcrumbs">
+                        <ul>
+                            <!-- Breadcrumb NavXT 6.6.0 -->
+<li class="home"><span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Revitex." href="https://bratil.ma/revitex" class="home"><span property="name">Revitex</span></a><meta property="position" content="1"></span></li>
+<li class="post-root post post-post current-item"><span property="itemListElement" typeof="ListItem"><span property="name" class="post-root post post-post current-item">Appels d’offres</span><meta property="url" content="https://bratil.ma/revitex/appels-doffres/"><meta property="position" content="2"></span></li>
+                        </ul>
+                    </nav>
+                
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Content -->
+
+<div class="container ">
+
+	<!-- Blog Posts -->
+	<div class="blog-page">
+		<div class="row">
+			<div class="col-lg-9 col-md-8 padding-right-30 col-blog">
+                {% for centre in centr %}
+			<div class="flex">
+        
+                <a class="img-container" href="../desc_centre/{{ centre.nom }}">
+                <img src="{{ centre.image_pres.url }}" height="100%">            </a>
+        
+    <!-- Content -->
+    <div class="post-content">
+        <h3><a href="../desc_centre/{{ centre.nom }}">{{centre.get__titre}}</a></h3>
+
+        <ul class="post-meta"><li><a href="../desc_centre/{{ centre.nom }}"><time class="entry-date published" >{{ appel.date}}</time></a></li></ul><p>{{centre.description|truncatechars:150}}</p>        <a href="https://bratil.ma/revitex/appel-concurrence-creation-centres-controle-technique-2016/" class="read-more">Lire la suite <i class="fa fa-angle-right"></i></a>
+    </div>
+
+</div>	
+{% endfor %}		
+	<!-- Pagination -->
+				<div class="clearfix"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Pagination -->
+						<div class="pagination-container margin-bottom-40">
+							<nav class="pagination">
+														</nav>
+						</div>
+				</div>
+			</div>
+			<!-- Pagination / End -->
+				
+		
+			</div>
+
+			<!-- Widgets -->
+			<div class="col-lg-3 col-md-4 col-sidebar">
+				<div class="sidebar right">
+					
+
+<div class="clearfix"></div></section><section id="text-4" class="widget  margin-top-40 widget_text"><h3 class="widget-title">Vous avez une question ?</h3>			<div class="textwidget"><div class="info-box margin-bottom-10">
+<p>Si vous avez des questions, n’hésitez pas à demander.</p>
+<p><a class="button fullwidth margin-top-20" href="../Contact/">Contactez-nous</a></p>
+</div>
+</div>
+	</section>      
+                	 <div class="margin-top-40"></div>
+</aside><!-- #secondary -->
+				</div>
+			</div>
+			<!-- Sidebar / End -->
+		</div>
+	<!-- Sidebar / End -->
+
+	</div>
+
+</div>
+{% endblock %}

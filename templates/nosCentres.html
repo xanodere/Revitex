@@ -1,0 +1,384 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+
+  
+{% block titre %}Nos centres{% endblock %}
+
+{% block style %}
+
+    @keyframes opacité {
+from {
+opacity: 0%;
+}
+
+to {
+opacity: 100%;
+
+}
+}
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #0315a4;
+    border-color: #0315a4;
+}
+.page-link {
+    color: #0315a4;
+    font-size: 14px;
+}
+
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+.col-lg-4{
+    animation: opacité 2s ;
+}
+#pagination{
+    justify-content:center;
+}
+#mapid { height: 100%; }
+
+#recherche{
+    font-size: 16px;
+}
+option, select{
+    font-size:15px;
+}
+{% endblock style %}
+   
+    
+
+{% block content %}
+      
+   
+<!--map carousel-->
+
+<div id="map-container" class="fullwidth-home-map margin-bottom-40 hide-map-on-mobile" >
+
+  <div id="mapid"></div> 
+    <!-- barre de recherche-->
+    <div class="main-search-inner">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					
+                    <form action="../rech_centre" id="listeo_core-search-form"  method="GET">
+                        <div class="main-search-input">
+                                
+                                        <div class="main-search-input-item location">
+                    <div class=" ">
+        <div id="autocomplete-container">
+            {{form.ville}}
+        </div>
+    </div>
+                        </div>
+                                        <div class="main-search-input-item select-taxonomy">
+                    
+    <div class="  ">
+        {{form.Contrôle_technique}}
+    </div>
+                        </div>
+                                        <div class="main-search-input-item select-taxonomy">
+                    
+    <div class="  ">
+        {{form.Titre_proprieté}}
+    </div>
+                        </div>
+                                
+                
+                             <input type="hidden" name="action" value="listeo_get_listings">
+                <!-- More Search Options / End -->
+                
+                                <!-- DEVELOPPER -->
+                    <button class="button">Rechercher</button>
+                </div>
+                                </form>
+						</div>
+			</div>
+		</div>
+	</div>
+
+<!--end map carousel-->
+<div class="container margin-bottom-30 margin-top-50">
+<!--copy du trieur.-->
+<div class="fullwidth-filters ajax-search" data-select2-id="select2-data-19-7p0x">
+	
+
+    <!-- Sort by -->
+<div class="sort-by" data-select2-id="select2-data-18-7xnk">
+    <div class="sort-by-select" data-select2-id="select2-data-17-q137">
+                    <select  data-placeholder="Default order" class="select2-sortby orderby select2-hidden-accessible" data-select2-id="select2-data-13-099i" tabindex="-1" aria-hidden="true">
+            <option value="default" data-select2-id="select2-data-24-hcxr">Par défaut</option>	
+            <option value="highest-rated" data-select2-id="select2-data-25-9erm">Likes</option>
+              <!--              <option selected="selected" value="date-desc" data-select2-id="select2-data-15-xrdg">Centres plus récents</option>
+            <option value="date-asc" data-select2-id="select2-data-26-dkyb">Centres plus anciens</option>-->
+
+            <option value="featured" data-select2-id="select2-data-27-e57r">Ordre alphabetique</option>
+            <option value="views" data-select2-id="select2-data-28-k1ab">Ordre anti-alphabetique</option>
+            <option value="rand" data-select2-id="select2-data-29-8msp">Aléatoire</option>
+        </select>
+    </div>
+</div>
+<!-- Sort by / End -->
+</div>
+</div>
+<section>
+<div class="container flex" id="contain">
+    
+<!--Section: Products v.3 µµµ-->
+
+{% for center in centre %}
+<div class="col-lg-4 col-md-6 mb-5" id="{{ center.nom }}">
+<a href="{% url 'desc' center.nom %}">
+    <div class="listing-item  ">
+    
+    <div class="listing-small-badges-container">
+                                             
+    </div>
+        <img src="{{center.image_pres.url}}" alt="">
+                                
+                                {% if now < center.heure_ouverture or now > center.heure_ouverture %}
+                                    <div class="listing-badge now-closed">Mnt Fermé</div>
+                                {% else }        
+                                    <div class="listing-badge now-open">Ouvert</div>
+                                {% endif %}
+                                      
+
+    <div class="listing-item-content">
+            
+         <h3>{{center.get__titre }} 
+         <i class="verified-icon"></i>
+        </h3>
+        <span>{{center.adresse }}</span>
+    </div>
+    <span  data="{{ center.nom }}" class="save like-icon" onclick="like(this)"></span>
+    
+ </div>
+</a>
+</div>
+
+ {% endfor %}
+</div>
+     <!--Pagination-->
+     <nav aria-label="Page navigation example" class="margin-bottom-50">
+        <ul class="pagination" id="pagination">
+       
+        </ul>
+    </nav>
+      <!--Pagination-->
+
+
+
+<div id="tiptip_holder" style="max-width:200px;"><div id="tiptip_arrow"><div id="tiptip_arrow_inner"></div></div><div id="tiptip_content"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" ></script>
+<script type="text/javascript" src="/static/admin/js/select2.min.js"></script>
+<script type="text/javascript" src="/static/admin/js/custom.js"></script>
+
+<script>
+ 
+    // leaflet 
+    var valididon = L.icon({
+    iconUrl: '/static/admin/img/marker-icon-valid.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1,-34],
+    shadowUrl: '/static/admin/img/marker-shadow.png',
+    shadowSize: [41,41],
+    shadowAnchor: [12, 41]
+});
+
+
+
+
+
+    var mymap = L.map('mapid').setView([35, 10], 3 );
+    
+    L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 15,
+       
+        subdomains:['mt0','mt1','mt2','mt3']
+    }).addTo(mymap);
+ 
+    
+    {% for centre in centres%}
+ 
+
+    marker = L.marker([parseFloat({{centre.latitude|unlocalize}}), parseFloat({{centre.longitude|unlocalize}})]).bindPopup(`
+            <div class="leaflet-popup-content-wrapper">
+            <div class="leaflet-popup-content" style="width: 100%;">
+                <a href="https://bratil.ma/revitex/listing/centre-a1-agadir/" class="leaflet-listing-img-container">
+                    <img src="{{centre.image_pres.url}}" alt="">
+                    <div class="leaflet-listing-item-content">
+                        <h3 class="arecup">Centre {{centre.nom}} - {{centre.ville.nom}}</h3>
+                        <span>{{centre.adresse}}</span>
+                    </div>
+                </a>
+                <div class="leaflet-listing-content">
+                    <div class="listing-title">
+                        <div class="star-rating">
+                            <span class="not-rated">Not rated yet
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+        ).openPopup();
+        marker.addTo(mymap)
+       
+
+        default_icon = marker.getIcon()
+    {% endfor%}
+    
+   // set the nb of elements per page
+   let nb_element_par_page = 6;
+    //
+    //fonction like
+    function like(e){
+       let nom_centre = e.getAttribute("data");
+       const request = new Request('/like/'.concat(nom_centre));
+       fetch(request);
+       e.removeAttribute("onclick");
+       e.setAttribute("style","background-color:#f3103c");
+       }
+
+
+    function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+ 
+function paginate(nb_elements_per_page,offset){
+  
+  let options = document.getElementsByClassName("col-lg-4 col-md-6 mb-5");
+
+for(i=0;i<options.length;i++){
+    if(i-offset>nb_elements_per_page-1){options[i].style.display="none"}
+    else if(i-offset<0) {options[i].style.display="none"}
+    else{options[i].style.display="block"}
+}
+
+}
+function generation_pagination(nb_elements_per_page){
+    let options = document.getElementsByClassName("col-lg-4 col-md-6 mb-5");
+    let pere = document.getElementById("pagination");
+    let quotient = Math.floor(options.length/nb_elements_per_page);
+    let remainder = options.length % nb_elements_per_page;
+    let nb_de_page = 0;
+    if(remainder>0){nb_de_page++;}
+    nb_de_page += quotient;
+    for(i=1;i<=nb_de_page;i++){
+        let element = document.createElement("li");
+        element.setAttribute("class","page-item");
+        element.setAttribute( "onclick","change_page(this)");
+        element.setAttribute("id",i.toString());
+        let base = "<";    
+        element.innerHTML = base.concat('a class="page-link">', i.toString(),"</a></li>" );
+        pere.appendChild(element);
+    }
+    
+}
+function change_page(e){
+    let liens = document.getElementsByClassName("page-link");
+    for(i=0;i<liens.length;i++){
+        liens[i].removeAttribute("style");
+    }
+    let num_page = e.firstChild.innerHTML;
+    e.firstChild.setAttribute("style"," color:white;background-color:#0315a4 ;");
+    paginate(nb_element_par_page,nb_element_par_page*num_page-2);
+}
+
+
+paginate(nb_element_par_page,0);
+generation_pagination(nb_element_par_page);
+document.getElementById("1").firstChild.setAttribute("style"," color:white;background-color:#0315a4 ;")
+
+function tri_master(nom_element){
+             
+             let options = document.getElementsByClassName("select2-results__option--selectable");
+     
+     
+     
+            for(i=0;i<options.length; i++){
+                if(options[i].textContent == nom_element){
+                 options[i].addEventListener("mousedown", function(e){
+                 let pere = document.getElementById("contain");
+                 removeAllChildNodes(pere); 
+                 
+                 const request = new Request('/tri/'.concat(e.target.innerHTML))
+                 fetch(request).then(response => response.json()).then(result => {
+                     let tab = [];
+                     let jsondefault = JSON.parse(result);
+                     for(i=0;i<jsondefault.length;i++){
+                         
+                     
+                        
+                     {% for center in centre %}
+                         
+                         if("{{center.nom}}" == jsondefault[i]["fields"]["nom"]){
+                             pere.insertAdjacentHTML("beforeend", `<div class="col-lg-4 col-md-6 mb-5" style='display:none' id="{{ center.nom }}">
+                                                 <div class="listing-item  ">
+                                                     
+                                                     <div class="listing-small-badges-container">
+                                                                                             
+                                                     </div>
+                                                         <img src="{{center.image_pres.url}}" alt="">
+                                                                                                        {% if now < center.heure_ouverture or now > center.heure_ouverture %}
+                                                                                    <div class="listing-badge now-closed">Mnt Fermé</div>
+                                                                                {% else }        
+                                                                                    <div class="listing-badge now-open">Ouvert</div>
+                                                                                {% endif %}
+                                                     <div class="listing-item-content">
+                                                             
+                                                         <h3>{{center.get__titre }} 
+                                                         <i class="verified-icon"></i>
+                                                         </h3>
+                                                         <span>{{center.adresse }}</span>
+                                                     </div>
+                                                     <span data="{{ center.nom }}" class="save like-icon" onclick="like(this)"></span>
+                                                     
+                                                 </div>
+                                                 </div>`
+                             )};
+     
+                     {% endfor %}
+                                        
+                 }paginate(nb_element_par_page,0);
+                 })
+                 
+                 
+                 })
+             }
+         
+          }
+         }
+window.onload = function(){
+   
+    document.getElementsByClassName("select2-selection")[0].addEventListener("click",() => { 
+            tri_master("Ordre alphabetique");
+            tri_master("Ordre anti-alphabetique");
+            tri_master("Likes");
+            tri_master("Aléatoire");
+            tri_master("Par défaut");
+           })
+};
+options= document.querySelectorAll("#autocomplete-container > option:nth-child(1)")
+    
+    options[0].innerHTML="Ville"
+    options[0].disabled =true
+    options[0].hidden =true
+    options[1].innerHTML="Contrôle technique"
+    options[1].disabled =true
+    options[1].hidden =true
+    options[2].innerHTML="Titre de propriété"
+    options[2].disabled =true
+    options[2].hidden =true
+</script>
+{% endblock %}
+
